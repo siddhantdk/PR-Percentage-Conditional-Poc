@@ -51,3 +51,8 @@ test("renders the correct greeting", () => {
   render(<HelloComponent name="Vite" />);
   expect(screen.getByText("HelloComponent, Vite!")).toBeInTheDocument();
 });
+
+test("renders the correct greeting", () => {
+  render(<HelloComponent name="Vite" />);
+  expect(screen.getByText("HelloComponent, Vite!")).toBeInTheDocument();
+});
