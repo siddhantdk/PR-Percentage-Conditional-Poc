@@ -1,0 +1,4 @@
+{"total": {"lines":{"total":16,"covered":13,"skipped":0,"pct":81.25},"statements":{"total":19,"covered":14,"skipped":0,"pct":73.68},"functions":{"total":10,"covered":5,"skipped":0,"pct":50},"branches":{"total":5,"covered":4,"skipped":0,"pct":80},"branchesTrue":{"total":0,"covered":0,"skipped":0,"pct":"Unknown"}}
+,"C:\\Work Folder\\Pr\\PR-Percentage-Conditional-Poc\\src\\Components\\Component.jsx": {"lines":{"total":14,"covered":11,"skipped":0,"pct":78.57},"functions":{"total":9,"covered":4,"skipped":0,"pct":44.44},"statements":{"total":17,"covered":12,"skipped":0,"pct":70.58},"branches":{"total":5,"covered":4,"skipped":0,"pct":80}}
+,"C:\\Work Folder\\Pr\\PR-Percentage-Conditional-Poc\\src\\Components\\Home.jsx": {"lines":{"total":2,"covered":2,"skipped":0,"pct":100},"functions":{"total":1,"covered":1,"skipped":0,"pct":100},"statements":{"total":2,"covered":2,"skipped":0,"pct":100},"branches":{"total":0,"covered":0,"skipped":0,"pct":100}}
+}
