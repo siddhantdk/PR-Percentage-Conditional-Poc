@@ -1,45 +1,40 @@
 name: CI Tests
 
 on:
-    pull_request:
-        branches:
-            - production
+  pull_request:
+    branches:
+      - production
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v3
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-            - name: Set up Node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 20
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-            - name: Install dependencies
-              run: npm install
+      - name: Install dependencies
+        run: npm install
 
-            - name: Run tests with JSON output
-              run: npm test -- --watchAll=false --json --outputFile=test-results.json
-              # Runs tests and outputs results to test-results.json
+      - name: Run tests and generate JSON report
+        run: npx jest --json --outputFile=jest-results.json
 
-            - name: Check test pass rate
-              run: |
-                  # Extract test results from JSON
-                  TOTAL_TESTS=$(node -p "require('./test-results.json').numTotalTests")
-                  PASSED_TESTS=$(node -p "require('./test-results.json').numPassedTests")
-                  echo "Total Tests: $TOTAL_TESTS"
-                  echo "Passed Tests: $PASSED_TESTS"
-
-                  # Calculate pass rate
-                  PASS_RATE=$(node -p "($PASSED_TESTS / $TOTAL_TESTS) * 100")
-                  echo "Test Pass Rate: $PASS_RATE%"
-
-                  # Check if pass rate is at least 90%
-                  if (( $(echo "$PASS_RATE < 90" | bc -l) )); then
-                    echo "Error: Test pass rate ($PASS_RATE%) is below 90% threshold! ($PASSED_TESTS/$TOTAL_TESTS tests passed)"
-                    exit 1
-                  fi
-                  echo "Test pass rate meets the 90% threshold."
+      - name: Check test pass percentage
+        run: |
+          node -e "
+          const fs = require('fs');
+          const results = JSON.parse(fs.readFileSync('jest-results.json'));
+          const total = results.numTotalTests;
+          const passed = results.numPassedTests;
+          const percent = (passed / total) * 100;
+          console.log(\`Test pass percentage: \${percent}%\`);
+          if (percent < 90) {
+            console.error('Test pass percentage below 90%');
+            process.exit(1);
+          }
+          "
