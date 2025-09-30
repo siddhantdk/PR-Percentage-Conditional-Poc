@@ -20,14 +20,43 @@ jobs:
 
             - name: Install dependencies
               run: npm install
+
+            - name: Run tests
+              run: npm test -- --watchAll=false
+              # Ensure tests run without coverage first to confirm they pass
+
             - name: Run tests with coverage
-              run: npm test -- --coverage --watchAll=false --json --outputFile=jest-coverage.json || true
-            - name: Check coverage & test results
-              run: node check-coverage.js
-            #   run: |
-            #       COVERAGE=$(node -p "require('./jest-coverage.json').coverageMap ? Object.values(require('./jest-coverage.json').coverageMap).reduce((acc, file) => acc + Object.values(file.s).reduce((a,b)=>a+b,0),0) / Object.values(require('./jest-coverage.json').coverageMap).reduce((acc, file) => acc + Object.keys(file.s).length,0) * 100 : 100")
-            #       echo "Calculated Coverage: $COVERAGE%"
-            #       if (( $(echo "$COVERAGE < 90" | bc -l) )); then
-            #         echo "Coverage too low!"
-            #         exit 1
-            #       fi
+              run: npm test -- --coverage --watchAll=false --coverageReporters=json --coverageReporters=text-summary
+              # Generates coverage report in JSON and text-summary formats
+
+            - name: Check coverage threshold
+              run: |
+                  # Extract coverage metrics from the text-summary output
+                  COVERAGE_SUMMARY=$(cat coverage/lcov-report/index.html | grep -oP 'Statements\s*:\s*\K[\d.]+%')
+                  STATEMENTS=$(echo $COVERAGE_SUMMARY | grep -oP '[\d.]+')
+                  echo "Statement Coverage: $STATEMENTS%"
+
+                  # Check if coverage is below 90%
+                  if (( $(echo "$STATEMENTS < 90" | bc -l) )); then
+                    echo "Error: Statement coverage ($STATEMENTS%) is below 90% threshold!"
+                    cat coverage/lcov-report/index.html | grep -A 10 "Coverage summary"
+                    exit 1
+                  fi
+
+                  # Optionally, check other metrics (branches, functions, lines)
+                  BRANCHES=$(cat coverage/lcov-report/index.html | grep -oP 'Branches\s*:\s*\K[\d.]+%')
+                  FUNCTIONS=$(cat coverage/lcov-report/index.html | grep -oP 'Functions\s*:\s*\K[\d.]+%')
+                  LINES=$(cat coverage/lcov-report/index.html | grep -oP 'Lines\s*:\s*\K[\d.]+%')
+
+                  echo "Branch Coverage: $BRANCHES"
+                  echo "Function Coverage: $FUNCTIONS"
+                  echo "Line Coverage: $LINES"
+
+                  # Enforce 90% for other metrics (optional)
+                  for METRIC in "$BRANCHES" "$FUNCTIONS" "$LINES"; do
+                    VALUE=$(echo $METRIC | grep -oP '[\d.]+')
+                    if (( $(echo "$VALUE < 90" | bc -l) )); then
+                      echo "Error: Coverage metric ($METRIC) is below 90% threshold!"
+                      exit 1
+                    fi
+                  done
