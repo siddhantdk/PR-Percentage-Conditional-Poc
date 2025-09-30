@@ -20,15 +20,14 @@ jobs:
 
             - name: Install dependencies
               run: npm install
-
             - name: Run tests with coverage
-              run: npm test -- --coverage --watchAll=false --json --outputFile=jest-coverage.json
-
-            - name: Check coverage threshold
-              run: |
-                  COVERAGE=$(node -p "require('./jest-coverage.json').coverageMap ? Object.values(require('./jest-coverage.json').coverageMap).reduce((acc, file) => acc + Object.values(file.s).reduce((a,b)=>a+b,0),0) / Object.values(require('./jest-coverage.json').coverageMap).reduce((acc, file) => acc + Object.keys(file.s).length,0) * 100 : 100")
-                  echo "Calculated Coverage: $COVERAGE%"
-                  if (( $(echo "$COVERAGE < 90" | bc -l) )); then
-                    echo "Coverage too low!"
-                    exit 1
-                  fi
+              run: npm test -- --coverage --watchAll=false --json --outputFile=jest-coverage.json || true
+            - name: Check coverage & test results
+              run: node check-coverage.js
+            #   run: |
+            #       COVERAGE=$(node -p "require('./jest-coverage.json').coverageMap ? Object.values(require('./jest-coverage.json').coverageMap).reduce((acc, file) => acc + Object.values(file.s).reduce((a,b)=>a+b,0),0) / Object.values(require('./jest-coverage.json').coverageMap).reduce((acc, file) => acc + Object.keys(file.s).length,0) * 100 : 100")
+            #       echo "Calculated Coverage: $COVERAGE%"
+            #       if (( $(echo "$COVERAGE < 90" | bc -l) )); then
+            #         echo "Coverage too low!"
+            #         exit 1
+            #       fi
