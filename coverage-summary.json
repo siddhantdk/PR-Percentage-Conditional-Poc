@@ -1,0 +1,229 @@
+{
+  "numFailedTestSuites": 0,
+  "numFailedTests": 0,
+  "numPassedTestSuites": 1,
+  "numPassedTests": 10,
+  "numPendingTestSuites": 0,
+  "numPendingTests": 0,
+  "numRuntimeErrorTestSuites": 0,
+  "numTodoTests": 0,
+  "numTotalTestSuites": 1,
+  "numTotalTests": 10,
+  "openHandles": [],
+  "snapshot": {
+    "added": 0,
+    "didUpdate": false,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0
+  },
+  "startTime": 1759231439787,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "duration": 25,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "renders the correct greeting",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1759231441011,
+          "status": "passed",
+          "title": "renders the correct greeting"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 3,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "renders the correct greeting",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1759231441037,
+          "status": "passed",
+          "title": "renders the correct greeting"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 3,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "renders the correct greeting",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1759231441041,
+          "status": "passed",
+          "title": "renders the correct greeting"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 2,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "renders the correct greeting",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1759231441045,
+          "status": "passed",
+          "title": "renders the correct greeting"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 4,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "renders the correct greeting",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1759231441048,
+          "status": "passed",
+          "title": "renders the correct greeting"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 2,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "renders the correct greeting",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1759231441053,
+          "status": "passed",
+          "title": "renders the correct greeting"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 2,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "renders the correct greeting",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1759231441056,
+          "status": "passed",
+          "title": "renders the correct greeting"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 2,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "renders the correct greeting",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1759231441059,
+          "status": "passed",
+          "title": "renders the correct greeting"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 3,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "renders the correct greeting",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1759231441061,
+          "status": "passed",
+          "title": "renders the correct greeting"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 2,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "renders the correct greeting",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1759231441065,
+          "status": "passed",
+          "title": "renders the correct greeting"
+        }
+      ],
+      "endTime": 1759231441069,
+      "message": "",
+      "name": "C:\\Work Folder\\Pr\\PR-Percentage-Conditional-Poc\\src\\Components\\Home.test.jsx",
+      "startTime": 1759231440370,
+      "status": "passed",
+      "summary": ""
+    }
+  ],
+  "wasInterrupted": false,
+  "coverageMap": {
+    "C:\\Work Folder\\Pr\\PR-Percentage-Conditional-Poc\\src\\Components\\Home.jsx": {
+      "path": "C:\\Work Folder\\Pr\\PR-Percentage-Conditional-Poc\\src\\Components\\Home.jsx",
+      "statementMap": {
+        "0": {
+          "start": { "line": 3, "column": 21 },
+          "end": { "line": 5, "column": 1 }
+        },
+        "1": {
+          "start": { "line": 4, "column": 2 },
+          "end": { "line": 4, "column": 33 }
+        }
+      },
+      "fnMap": {
+        "0": {
+          "name": "(anonymous_0)",
+          "decl": {
+            "start": { "line": 3, "column": 21 },
+            "end": { "line": 3, "column": 22 }
+          },
+          "loc": {
+            "start": { "line": 3, "column": 35 },
+            "end": { "line": 5, "column": 1 }
+          },
+          "line": 3
+        }
+      },
+      "branchMap": {},
+      "s": { "0": 1, "1": 10 },
+      "f": { "0": 10 },
+      "b": {},
+      "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+      "hash": "c5240b03b2deac65bd00a7d9d718cda68dd81274"
+    }
+  }
+}
