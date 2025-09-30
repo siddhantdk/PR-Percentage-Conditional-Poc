@@ -1,40 +1,52 @@
 name: CI Tests
 
 on:
-  pull_request:
-    branches:
-      - production
+    pull_request:
+        branches:
+            - production
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+    test:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 20
 
-      - name: Install dependencies
-        run: npm install
+            - name: Install dependencies
+              run: npm install
 
-      - name: Run tests and generate JSON report
-        run: npx jest --json --outputFile=jest-results.json
+            - name: Run tests with coverage and generate JSON report
+              run: npx jest --coverage --coverageReporters=json --outputFile=coverage/coverage-summary.json
 
-      - name: Check test pass percentage
-        run: |
-          node -e "
-          const fs = require('fs');
-          const results = JSON.parse(fs.readFileSync('jest-results.json'));
-          const total = results.numTotalTests;
-          const passed = results.numPassedTests;
-          const percent = (passed / total) * 100;
-          console.log(\`Test pass percentage: \${percent}%\`);
-          if (percent < 90) {
-            console.error('Test pass percentage below 90%');
-            process.exit(1);
-          }
-          "
+            - name: Check coverage thresholds
+              run: |
+                  node -e "
+                  const fs = require('fs');
+                  const coverage = JSON.parse(fs.readFileSync('coverage/coverage-summary.json'));
+                  const totalStatements = coverage.total.statements.pct;
+                  const totalBranches = coverage.total.branches.pct;
+                  const totalFunctions = coverage.total.functions.pct;
+                  const totalLines = coverage.total.lines.pct;
+
+                  console.log(\`Statements coverage: \${totalStatements}%\`);
+                  console.log(\`Branches coverage: \${totalBranches}%\`);
+                  console.log(\`Functions coverage: \${totalFunctions}%\`);
+                  console.log(\`Lines coverage: \${totalLines}%\`);
+
+                  const minCoverage = 90;
+                  if (
+                    totalStatements < minCoverage ||
+                    totalBranches < minCoverage ||
+                    totalFunctions < minCoverage ||
+                    totalLines < minCoverage
+                  ) {
+                    console.error('Coverage below 90%');
+                    process.exit(1);
+                  }
+                  "
