@@ -1,33 +1,40 @@
 name: CI Tests
 
 on:
-    pull_request:
-        branches:
-            - production
+  pull_request:
+    branches:
+      - production
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v3
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-            - name: Set up Node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 20
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-            - name: Install dependencies
-              run: npm install
-            - name: Run tests with coverage
-              run: npm test -- --coverage --watchAll=false --json --outputFile=jest-coverage.json || true
-            - name: Check coverage & test results
-              run: node check-coverage.js
-            #   run: |
-            #       COVERAGE=$(node -p "require('./jest-coverage.json').coverageMap ? Object.values(require('./jest-coverage.json').coverageMap).reduce((acc, file) => acc + Object.values(file.s).reduce((a,b)=>a+b,0),0) / Object.values(require('./jest-coverage.json').coverageMap).reduce((acc, file) => acc + Object.keys(file.s).length,0) * 100 : 100")
-            #       echo "Calculated Coverage: $COVERAGE%"
-            #       if (( $(echo "$COVERAGE < 90" | bc -l) )); then
-            #         echo "Coverage too low!"
-            #         exit 1
-            #       fi
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests and generate JSON report
+        run: npx jest --json --outputFile=jest-results.json
+
+      - name: Check test pass percentage
+        run: |
+          node -e "
+          const fs = require('fs');
+          const results = JSON.parse(fs.readFileSync('jest-results.json'));
+          const total = results.numTotalTests;
+          const passed = results.numPassedTests;
+          const percent = (passed / total) * 100;
+          console.log(\`Test pass percentage: \${percent}%\`);
+          if (percent < 90) {
+            console.error('Test pass percentage below 90%');
+            process.exit(1);
+          }
+          "
