@@ -8,6 +8,7 @@ export const HelloComponent = ({ name, initialCount = 0 }) => {
   const unusedFunction = () => {
     console.log("This function is never called");
   };
+  /// omkar test comment
 
   const increment = () => setCount(count + 1);
   const decrement = () => setCount(count - 1);
